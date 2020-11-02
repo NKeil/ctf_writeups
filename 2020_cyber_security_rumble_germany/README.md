@@ -25,7 +25,7 @@ We are greeted with a login screen that asks the user for their password. The `L
 
 ![login](https://github.com/NKeil/ctf_writeups/blob/main/2020_cyber_security_rumble_germany/images/login.png?raw=true)
 
-If we look at the HTML file, we can find embedded JavaScript code that is used to validate the password, which gives us the password in plain text.
+Taking a look at the HTML file, we find that JavaScript code is imbedded to validate the password input, which gives us the password in plain text.
 
 ```
 function checkPw() {
@@ -42,7 +42,7 @@ After we login, we find links to 5 pages, 4 of which have just text and images. 
 
 ![ping](https://github.com/NKeil/ctf_writeups/blob/main/2020_cyber_security_rumble_germany/images/ping.png?raw=true)
 
-Since our input is being used in the form `ping [input]`, we can test the amount of checks being done on the input by appending another command after the hostname such as `localhost && ls -l`, which successfully gives us the output:
+Since our input is being used in the form `ping [input]`, we can test the website's leniency of accepted inputs by appending another command after the hostname such as `localhost && ls -l`, which successfully gives us the output:
 
 ```
 -rw-r--r-- 1 root root   16 Oct 15 12:49 requirements.txt
