@@ -23,7 +23,7 @@ Software Used:
 ## Cyberwall
 We are greeted with a login screen that asks the user for their password. The `Lost Password` button just sends an alert to the browser.
 
-![login](https://github.com/nkeil/ctf_writeups/main/2020_cyber_security_rumble_germany/images/login.png?raw=true)
+![login](https://github.com/NKeil/ctf_writeups/blob/main/2020_cyber_security_rumble_germany/images/login.png?raw=true)
 
 If we look at the HTML file, we can find embedded JavaScript code that is used to validate the password, which gives us the password in plain text.
 
@@ -40,7 +40,7 @@ function checkPw() {
 
 After we login, we find links to 5 pages, 4 of which have just text and images. The 5th however, has an input box to `Test Host Connection` by inputting an argument to `ping`. 
 
-![ping](https://github.com/nkeil/ctf_writeups/main/2020_cyber_security_rumble_germany/images/ping.png?raw=true)
+![ping](https://github.com/NKeil/ctf_writeups/blob/main/2020_cyber_security_rumble_germany/images/ping.png?raw=true)
 
 Since our input is being used in the form `ping [input]`, we can test the amount of checks being done on the input by appending another command after the hostname such as `localhost && ls -l`, which successfully gives us the output:
 
