@@ -59,5 +59,88 @@ CSR{oh_damnit_should_have_banned_curl_https://news.ycombinator.com/item?id=19507
 ```
 
 ## Zeh
+
+In this challenge, we are given the following text file:
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include "fahne.h"
+
+#define Hauptroutine main
+#define nichts void
+#define Ganzzahl int
+#define schleife(n) for (Ganzzahl i = n; i--;)
+#define bitrverschieb(n, m) (n) >> (m)
+#define diskreteAddition(n, m) (n) ^ (m)
+#define wenn if
+#define ansonsten else
+#define Zeichen char
+#define Zeiger *
+#define Referenz &
+#define Ausgabe(s) puts(s)
+#define FormatAusgabe printf
+#define FormatEingabe scanf
+#define Zufall rand()
+#define istgleich =
+#define gleichbedeutend ==
+
+nichts Hauptroutine(nichts) {
+    Ganzzahl i istgleich Zufall;
+    Ganzzahl k istgleich 13;
+    Ganzzahl e;
+    Ganzzahl Zeiger p istgleich Referenz i;
+
+    FormatAusgabe("%d\n", i);
+    fflush(stdout);
+    FormatEingabe("%d %d", Referenz k, Referenz e);
+
+    schleife(7)
+        k istgleich bitrverschieb(Zeiger p, k % 3);
+
+    k istgleich diskreteAddition(k, e);
+
+    wenn(k gleichbedeutend 53225)
+        Ausgabe(Fahne);
+    ansonsten
+        Ausgabe("War wohl nichts!");
+}
+```
+along with a netcat link that runs the script. Filling in the #define 's, we are left with an easier to follow program:
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+void main(void) {
+    char* flag = "CSR{";
+    int i = rand();
+    int k = 13;
+    int e;
+    int *p = &i;
+
+
+    for (int i = 7; i--;)
+	printf("%d\n", i);
+
+    printf("%d\n", i);
+    fflush(stdout);
+    scanf("%d %d", &k, &e);
+
+    for (int i = 7; i--;) {
+        k = *p >> (k % 3);
+	printf("%d\n", k);
+}
+
+    k = k ^ e;
+
+    if(k == 53225)
+        puts(flag);
+    else
+        puts("That was nothing!");
+}
+```
+
+
 ## Hashfun
 ## Wheels n Whales
