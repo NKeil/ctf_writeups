@@ -106,22 +106,18 @@ nichts Hauptroutine(nichts) {
         Ausgabe("War wohl nichts!");
 }
 ```
-along with a netcat link that runs the script. Filling in the #define 's, we are left with an easier to follow program:
+along with a netcat link that runs the script. Filling in the #define 's, and adding some print statements, we are left with an easier to follow program:
 
 ```
 #include <stdio.h>
 #include <stdlib.h>
 
 void main(void) {
-    char* flag = "CSR{";
+    char* flag = "????";
     int i = rand();
     int k = 13;
     int e;
     int *p = &i;
-
-
-    for (int i = 7; i--;)
-	printf("%d\n", i);
 
     printf("%d\n", i);
     fflush(stdout);
@@ -140,7 +136,7 @@ void main(void) {
         puts("That was nothing!");
 }
 ```
-
+Our task is now to reverse engineer this algorithm to find a valid input for `k` and `e` such that by the end, `k == 53225`. Running this program, we see that `i` is set to the same value every time. This allows us to simply pick a `k`, see what it outputs at the end of the for loop, and then generating an `e` such that `k ^ e = 53225`. For instance, if `k = 2` initially, then at the end of the for loop, `k = 1804289383`. We can run `1804289383 ^ 53225` to get  `e = 1804307086`. We now input these numbers into the server to get the flag.
 
 ## Hashfun
 ## Wheels n Whales
