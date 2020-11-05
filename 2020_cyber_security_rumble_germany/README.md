@@ -139,4 +139,35 @@ void main(void) {
 Our task is now to reverse engineer this algorithm to find a valid input for `k` and `e` such that by the end, `k == 53225`. Running this program, we see that `i` is set to the same value every time. This allows us to simply pick a `k`, see what it outputs at the end of the for loop, and then generating an `e` such that `k ^ e = 53225`. For instance, if `k = 2` initially, then at the end of the for loop, `k = 1804289383`. We can run `1804289383 ^ 53225` to get  `e = 1804307086`. We now input these numbers into the server to get the flag.
 
 ## Hashfun
+
+We are given the following python script:
+```
+from secret import FLAG
+
+def hashfun(msg):
+    digest = []
+    for i in range(len(msg) - 4):
+        digest.append(ord(msg[i]) ^ ord(msg[i + 4]))
+    return digest
+
+print(hashfun(FLAG))
+# [10, 30, 31, 62, 27, 9, 4, 0, 1, 1, 4, 4, 7, 13, 8, 12, 21, 28, 12, 6, 60]
+```
+To get the flag for this problem, we must reverse engineer this algorithm, since we know the output. The key here is knowing that the first 4 characters of the flag are `CSR{`. For example, since the first character is `C`, and the first number in the output is `10`, we can determine the 4th character as `ord("C") ^ ord(msg[4]) = 10` or `msg[4] = chr(10 ^ ord("C")`. This is performed by the following python program:
+```
+def fn(out):
+    msg = "CSR{"
+    index = 0
+    for x in range(len(out)):
+        msg += find(msg[x], out[x])
+    return msg
+
+def find(x, y):
+    return chr(y ^ ord(x))
+
+FLAG = [10, 30, 31, 62, 27, 9, 4, 0, 1, 1, 4, 4, 7, 13, 8, 12, 21, 28, 12, 6, 60]
+print(fn(FLAG))
+```
+Giving us the correct flag.
+
 ## Wheels n Whales
